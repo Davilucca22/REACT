@@ -101,7 +101,7 @@ export default class Main extends Component {
       <div className='main'>
         <h1>LISTA DE TAREFAS</h1>
 
-        <Form
+        <Form 
           addTarefas={this.addTarefas}
           inputEdit={this.inputEdit}
           novoTexto={novoTexto}
