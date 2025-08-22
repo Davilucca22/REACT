@@ -1,14 +1,12 @@
-//Função: conter a lógica e a interface de uma parte específica da aplicação (no seu caso, a lista de tarefas).
+//Função: conter a lógica e a interface de uma parte específica da aplicação (no caso, a lista de tarefas).
 
 //todo arquivo js precisa importar o react
 import React, { Component } from 'react';
 import './main.css'
 
-//form
-import { FaPlus }  from 'react-icons/fa'
-
-//tarefas
-import { FaEdit,FaWindowClose }  from 'react-icons/fa'
+//impota os componentes que serão usados(formulario e lista de tarefas)
+import Form from './Form';
+import Tarefas from './Tarefas';
 
 //a classe main esta sendo exportada com os atributos da classe Component do react
 export default class Main extends Component {
@@ -20,7 +18,7 @@ export default class Main extends Component {
   }
 
   //é necessario ser arrow function para o this funcionar
-  inputEdit = (e) => { //isso é uma funçao ta?
+  inputEdit = (e) => {
     this.setState({
       novoTexto: e.target.value //o valor do target(input) é atribuido a chave novoTexto
     })
@@ -28,12 +26,12 @@ export default class Main extends Component {
 
   addTarefas = (e) => {
     e.preventDefault() //evita de recarregar a pagina
-    if(this.state.novoTexto.trim() === '') return;
+    if(this.state.novoTexto.trim() === '') return; //se o input estiver vazio, não faz nada
 
     if(this.state.index === -1){
       //copia todos os valores ja gravados no array e add o novo texto digitado pelo usuario
       this.setState({
-        tarefas: [...this.state.tarefas,this.state.novoTexto],
+        tarefas: [...this.state.tarefas,this.state.novoTexto], //seta o novo texto no array de tarefas
         novoTexto: '' //limpa o texto
       }, () => {
         this.SalvarLocal(this.state.tarefas) //salva o array atualizado no localStorage(com callBack)
@@ -41,9 +39,10 @@ export default class Main extends Component {
     }else{
       const { tarefas,novoTexto,index } = this.state
 
-      const novasTarefas = [...tarefas]
-      novasTarefas[index] = novoTexto
+      const novasTarefas = [...tarefas] //copia o array original para uma variavel
+      novasTarefas[index] = novoTexto //atribui o novo texto ao indice do array que foi editado
 
+      //seta os novos valores
       this.setState({
         tarefas:[...novasTarefas],
         novoTexto: '',
@@ -99,29 +98,23 @@ export default class Main extends Component {
     const {novoTexto, tarefas} = this.state
 
     return (
-      <div className='conteiner'>
-
       <div className='main'>
         <h1>LISTA DE TAREFAS</h1>
-        <form action="#" onSubmit={(e) => {this.addTarefas(e)}} className='form'>
-          <input  onChange={this.inputEdit} type='text' value={novoTexto} />
-          <button type='submit'><FaPlus /></button>
-        </form>
 
-        <ul id='lista'>
-          {tarefas.map((e,index) => (
-            <li>
-            {e}
-            <span id={e}>
-              <FaEdit  id='edit' onClick={(e) => this.editTarefa(e,index)} />
-              <FaWindowClose onClick={(e) => this.deleteTarefa(e,index)} id='del' />
-            </span>
-          </li>
-          ))}
-        </ul>
-      </div>
+        <Form
+          addTarefas={this.addTarefas}
+          inputEdit={this.inputEdit}
+          novoTexto={novoTexto}
+        />
+
+        <Tarefas
+          tarefas={tarefas}
+          editTarefa={this.editTarefa}
+          deleteTarefa={this.deleteTarefa}
+        />
 
       </div>
+
     )
   }
 }
