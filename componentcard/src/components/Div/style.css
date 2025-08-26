@@ -1,0 +1,84 @@
+*{
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body{
+    background-color: burlywood;
+    margin: 0;
+}
+
+form{
+    background-color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+    padding: 20px;
+    width: 60vw;
+    box-shadow: 1px 1px 3px black;
+    align-items: center;
+    border-radius: 10px;
+}
+
+form input{
+    margin: 5px;
+    padding: 5px;
+    width: 30vw;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 1px solid;
+}
+
+form input:focus{
+    outline: none;
+}
+
+form button{
+    margin: 10px;
+    width: 20vw;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+form button:hover{
+    cursor: pointer;
+    scale: 1.02;
+    transition: all 100ms;
+}
+
+#lista{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    marker: none;
+    justify-content: center;
+}
+
+li{
+    margin: 15px;
+    width: 300px;
+    padding: 10px;
+    background-color: antiquewhite;
+    box-shadow: 1px 1px 3px black;
+    list-style-type: none;
+    text-align: center;
+}
+
+li:hover{
+    cursor: pointer;
+    scale: 1.02;
+    transition: all 100ms;
+}
+
+#lista li h1{
+    font-size: 40px;
+    margin-bottom: 5px;
+}
+
+#lista li p{
+    display: none;
+    font-size: 18px;
+}
